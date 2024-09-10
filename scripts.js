@@ -58,9 +58,9 @@ function displayPhotos(json){
     let output = "";
 
     for(let photo of json){
-        // TO DO
+        
         output += `
-            <img src="${"add image url here"}" alt="" width="${"add image width here"}" height="${"add image height here"}">
+            <img src="${photo.url}" alt="" width="${photo.width}" height="${photo.height}">
         `;
 
     }
@@ -71,7 +71,36 @@ function displayPhotos(json){
 // the function that will display the data from our JSON file of users to the console
 function getUsers(data){
     console.log('This is our user data from the file: ', data);
-    // TO DO - ADD USER INFO TO PAGE
+    /*
+    for each user:
+    <section>
+    - name <h3>
+    - username <p>
+    - img (large)
+    - birthday (m, d, y) <p>
+    - email address (as a clickable link) <a>
+    </section>
+    */
+
+    let outputDiv = document.getElementById("users");
+    let birthday;
+    let output = "";
+
+    for(let user of data.results){
+        console.log(user);
+        birthday = new Date(user.dob.date);
+        output += `
+        <section>
+            <h3>${user.name.first} ${user.name.last}</h3>
+            <p>Username: ${user.login.username}</p>
+            <img src="${user.picture.large}" alt="" width="160" height="160">
+            <p>Birthday: ${birthday.getMonth() + 1} - ${birthday.getDate()} - ${birthday.getFullYear()}</p>
+            <a href="mailto:${user.email}">${user.email}</a>
+        </section>
+        `;
+    }
+
+    outputDiv.innerHTML = output;
 }
 
 // call the function to display the cat photos on page load
